@@ -15,7 +15,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   
   config.vm.define "web" do |web|
     web.vm.box = "CentOS7.5_1804"
-    web.vm.network :private_network, ip: "192.168.9.101", virtualbox__intnet: "DFS-Network"
+    #web.vm.network :private_network, ip: "192.168.9.101", virtualbox__intnet: "DFS-Network"
+	web.vm.network "private_network", type: "dhcp", virtualbox__intnet: "DFS-Network"
     web.vm.hostname = "web"
 
     web.vm.provider :virtualbox do |vb|
@@ -26,7 +27,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   
   config.vm.define "db" do |db|
     db.vm.box = "ubuntu/trusty64"
-    db.vm.network :private_network, ip: "192.168.9.102", virtualbox__intnet: "DFS-Network"
+    #db.vm.network :private_network, ip: "192.168.9.102", virtualbox__intnet: "DFS-Network"
+	db.vm.network "private_network", type: "dhcp", virtualbox__intnet: "DFS-Network"
     db.vm.hostname = "database"
 
     db.vm.provider :virtualbox do |vb|
@@ -37,7 +39,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   
   config.vm.define "dev" do |dev|
     dev.vm.box = "CentOS7.5_1804"
-    dev.vm.network :private_network, ip: "192.168.9.103", virtualbox__intnet: "DFS-Network"
+    #dev.vm.network :private_network, ip: "192.168.9.103", virtualbox__intnet: "DFS-Network"
+	dev.vm.network "private_network", type: "dhcp", virtualbox__intnet: "DFS-Network"
     dev.vm.hostname = "dev"
 
     dev.vm.provider :virtualbox do |vb|
