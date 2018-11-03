@@ -1,0 +1,28 @@
+---
+- name: This sets up a httpd web server
+  hosts: webserver
+  become: true
+  tasks:
+  - name: Install apache package
+    yum:
+	  name: httpd
+	  state: latest
+  - name: Ensure httpd is running
+    service:
+	  name: httpd
+	  state: started
+  - name: Open port 80 for http access
+    firewalld:
+	  service: http
+	  permanent: true
+	  state: enabled
+	notify:
+	  - restart httpd
+	  
+  handlers:
+    name: Restart Httpd
+	service:
+	  name: firewalld
+	  state: restarted
+	  
+	  

@@ -1,0 +1,35 @@
+---
+- hosts: development,webserver
+  become: true
+  tasks:
+    - name: Install Package
+      yum:
+        name: "{{ item.name }}"
+        # gpcheck: "{{ item.gpgcheck|default(omit) }}"
+        state: latest
+      with_items:
+        - { name: wget }
+        - { name: net-tools }
+        - { name: bind-utils }
+       # - { name: iptables-services }
+        - { name: traceroute }
+        - { name: firewalld }
+    - name: Uninstall pkg
+      yum:
+        name: iptables-services
+        state: absent
+
+- hosts: database
+  become: true
+  tasks:
+    - name: Install Package
+      apt:
+        name: "{{ item.name }}"
+        state: present
+      with_items:
+        - { name: traceroute }
+        - { name: firewalld }
+    - name: remove iptables service
+      apt:
+        name: iptables
+        state: absent
